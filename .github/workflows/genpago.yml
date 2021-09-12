@@ -10,8 +10,8 @@ jobs:
     steps:
         - name: branch
           uses: actions/checkout@v2
-          with:
-            BRANCH: pagoz
+#           with:
+#             BRANCH: pagoz
 
         - name: install
           run: npm install
