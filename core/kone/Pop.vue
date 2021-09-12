@@ -42,19 +42,19 @@ import { ref } from 'vue'
 defineProps(['len','tt'])
 
 let jugDet= ref(false)
-let djDet= ref([])
+let djDet= ref([{K:1,U:2,E:3,F:[41,42],P:[51,52],Rx:6,M1:7}])
 
-import Fuse from 'fuse.js'
-import { TangutDict as Dz } from '../mate/daj/Tangut_dict_v21'
-const fuseNur= new Fuse(Dz, {
-  threshold: .1,
-  keys: ['U']
-})
-function findNur(e){
-  const uid= e.codePointAt().toString(16)
-  djDet.value= fuseNur.search(uid)[0].item;
-  // console.log(99,  djDet.value)
-}
+// import Fuse from 'fuse.js'
+// import { TangutDict as Dz } from '../mate/daj/Tangut_dict_v21'
+// const fuseNur= new Fuse(Dz, {
+//   threshold: .1,
+//   keys: ['U']
+// })
+// function findNur(e){
+//   const uid= e.codePointAt().toString(16)
+//   djDet.value= fuseNur.search(uid)[0].item;
+//   // console.log(99,  djDet.value)
+// }
 </script>
 
 <style scoped lang='scss'>
