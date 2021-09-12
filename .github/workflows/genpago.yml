@@ -1,4 +1,4 @@
-name: CI
+name: MainHi
 on:
   push:
     branches: [pagoz]
@@ -8,28 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-        - name: branch
-          uses: actions/checkout@v2
-#           with:
-#             BRANCH: pagoz
-
-        - name: install
-          run: npm install
-          
-        - name: build
-          run: npm run build
-          
-#         - name: serverion
-#           run: npm run serve
-          
-#         - name: upnow to master
-#           run: |
-#             cd pago
-#             ls
-            
-        - name: deploy
-          uses: JamesIves/github-pages-deploy-action@releases/v3
-          with:
-            ACCESS_TOKEN: ${{secrets.CICDz}}
-            BRANCH: master
-            FOLDER: pago
+      - name: see hi
+        run: echo 'hello~'
