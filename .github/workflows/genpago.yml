@@ -1,35 +1,35 @@
-name: CI
-on:
-  push:
-    branches: [pagoz]
+# name: CI
+# on:
+#   push:
+#     branches: [pagoz]
 
-jobs:
-  genpago:
-    runs-on: ubuntu-latest
+# jobs:
+#   genpago:
+#     runs-on: ubuntu-latest
     
-    steps:
-        - name: branch
-          uses: actions/checkout@v2
-          with:
-            BRANCH: pagoz
+#     steps:
+#         - name: branch
+#           uses: actions/checkout@v2
+#           with:
+#             BRANCH: pagoz
 
-        - name: install
-          run: npm install
+#         - name: install
+#           run: npm install
           
-        - name: build
-          run: npm run build
+#         - name: build
+#           run: npm run build
           
-#         - name: serverion
-#           run: npm run serve
+# #         - name: serverion
+# #           run: npm run serve
           
-#         - name: upnow to master
-#           run: |
-#             cd pago
-#             ls
+# #         - name: upnow to master
+# #           run: |
+# #             cd pago
+# #             ls
             
-        - name: deploy
-          uses: JamesIves/github-pages-deploy-action@releases/v3
-          with:
-            ACCESS_TOKEN: ${{secrets.CICDz}}
-            BRANCH: master
-            FOLDER: pago
+#         - name: deploy
+#           uses: JamesIves/github-pages-deploy-action@releases/v3
+#           with:
+#             ACCESS_TOKEN: ${{secrets.CICDz}}
+#             BRANCH: master
+#             FOLDER: pago
