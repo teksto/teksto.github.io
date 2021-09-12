@@ -66,7 +66,8 @@ const rPath= [
     path: "/spli",
     name: "splicing",
     alias: "/go/spli",
-    component: ()=> import("../pago/ilo/Splikado.vue")
+    // component: ()=> import("../pago/ilo/Splikado.vue")
+    component: {template: `<h1>Splicing.</h1>`}
   },
   {
     path: "/about",
