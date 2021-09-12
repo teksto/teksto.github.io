@@ -5,7 +5,7 @@
 ## KVAR porject
 schedule 18% (v5)
 
-[KVAR table](https://teksto/Tangut)
+[KVAR table](https://github.com/teksto/tangut)
 
 # log
 - v1: delete!
