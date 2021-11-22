@@ -3,15 +3,11 @@
     <a href="#/" class="logo"><img src="/res/cabbage.png"></a>
     <router-link to="/" active-class="el">HEJM</router-link>
     <router-link to="/about" active-class="el">PRI</router-link>
-    <router-link to="/tool" active-class="el" style="color: #000000">.</router-link>
   </div>
 
   <!-- Alternating light and dark -->
-  <div id="Alterna">
-    <input
-     @click="ladJug=!ladJug"
-     type="checkbox" name="Alterna" id="alterna-cio" hidden :checked="ladJug">
-    <label for="alterna-cio"></label>
+  <div id="Alterna" @click="salti">
+    <span id="Alterna-cio" :class="Luno?'el':'elz'"></span>
   </div>
 
   <!-- print router pagoz -->
@@ -26,94 +22,148 @@
 </template>
 
 <script setup>
-import { onBeforeUpdate, onMounted, ref } from 'vue'
+import { onBeforeUpdate, onMounted, ref, watch } from 'vue'
 
-const H= (new Date).getHours()
-// let ladJug= ref(false)
-let ladJug= H >= 6 && H <= 18? ref(true):ref(false);
-// 默认时段浅色主题。
-if(ladJug.value){
-  document.body.style.cssText= "background-color: var(--white); color: var(--dark);";
+// 控制深浅主题的配色。
+let Luno= ref(false);
+function salti(jug){
+  Luno.value=!Luno.value;
+  if(Luno.value){
+    document.documentElement.style.setProperty('--bg', 'var(--white-true)')
+    document.documentElement.style.setProperty('--cl', 'var(--color)')
+  }else{
+    document.documentElement.style.setProperty('--bg', 'var(--black)')
+    document.documentElement.style.setProperty('--cl', 'var(--white)')
+  }
+  document.body.style.cssText= "transition: background 3s"
 }
-// 深浅切换。
-onBeforeUpdate(()=>{
-  document.body.style.cssText= ladJug.value? "background-color: var(--white); color: var(--dark);":"background-color: var(--back); color: var(--color);"
-
-})
-
 </script>
 
 <style lang="scss">
 body{
-  color: var(--color);
-  background-color: var(--back);
+  background-color: var(--bg);
+  color: var(--cl);
 }
+// @media(prefers-color-scheme: light){
+//   body{
+//     background-color: var(--day-bg);
+//     color: var(--day-cl);
+//   }
+// }
+// @media(prefers-color-scheme: dark){
+//   body{
+//     background-color: var(--nig-bg);
+//     color: var(--nig-cl);
+//   }
+// }
 
-#Navigado-main{
-  top: 0;
-  left: 0;
-  position: fixed;
-  padding: .3rem .3rem;
-  font-size: .7rem;
+// Universala.
+a{
+  text-decoration: none;
+  color: var(--link);
+  &:hover{color: var(--link-hover);}
+  &:active{color: var(--link-action);}
+}
+.bn,
+button{
+  appearance: none;
+  border-style: none;
+  outline: transparent;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+  color: var(--button-lg);
+  background-color: var(--button-back);
+  border-radius: .2rem;
+  padding: .3rem .6rem;
+  margin: .1rem;
+  font-size: .9rem;
   line-height: 1.2rem;
 
-  writing-mode: vertical-lr;
+  &:hover{
+    color: var(--button-lg)!important;
+    background-color: var(--button-hover);
+  }
+  &:active{color: var(--button)!important;}
+  &[class~="el"]{color: var(--button); font-weight: 600;}
+
+  transition: background-color .5s;
+}
+
+// Arango.
+#Pagoz{
+  margin-left: 1.8rem;
+  width: calc(100% - 1.8rem);
+}
+#Navigado-main{
+  font-size: .7rem;
+  line-height: 1.2rem;
+  padding: .3rem .3rem;
+  writing-mode: vertical-rl;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  $link: #1B5E20;
+  $hover: #4CAF50;
 
   a{
-    appearance: none;
-    text-decoration: none;
-    color: var(--hover);
     margin-top: .3rem;
-
-    &:hover{
-      font-weight: 600;
-    }
-
+    color: $link;
+    &:hover{font-weight: 600;}
     &[class~="el"]{
       font-weight: 600;
-      color: var(--link);
+      color: $hover;
     }
   }
   .logo{
     img{max-width: 1.2rem;}
   }
 }
-
-#Pagoz{
-  margin-left: 1.8rem;
-  width: calc(100% - 1.8rem);
-  // max-width: calc(100% - 1.8rem);
-}
 #Informoj{
-  margin: .9rem auto;
   text-align: center;
   a{
     color: var(--dark-lg);
-    text-decoration: none;
-    &:hover{color: var(--dark-ls);}
+    &:hover{color: var(--dark-lw);}
   }
 }
 
 // Alternating
 #Alterna{
-  top: 0;
-  right: 0;
   position: absolute;
+  right: 0;
+  top: 0;
   margin: .3rem;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  cursor: pointer;
 
-  label{
-    &:hover::before{content: '🌗';}
+  #Alterna-cio{
     &::before{content: '🌕';}
-    cursor: pointer;
+    &:active::before{content: '🌗';}
+    &[class~="el"]::before{content: '🌑';}
   }
-  #alterna-cio:checked ~ label[for~="alterna-cio"]{
-    &::before{content: '🌑';}
+  &:hover{
+    animation: spa 3s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
   }
 }
-
-// tangut and khitan font.
-.tg,
-:lang(tangut){
-  font-family: 'Tangut_unicode_sev';
+@keyframes roll {
+  0%{opacity: 1;}
+  100%{
+    opacity: 0;
+    transform: translate3d(0,-100%,0) rotate3d(0,0,1,-120deg);
+  }
+}
+@keyframes spa {
+  20%{transform: scale3d(.9,.9,.9);}
+  50%{transform: scale3d(1.1,1.1,1.1);}
+  75%{opacity: .5;}
+  100%{transform: scale3d(.3,.3,.3); opacity: 0;}
 }
 </style>

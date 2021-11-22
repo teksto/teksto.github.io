@@ -9,6 +9,8 @@
 
 <script setup>
 import { ref } from 'vue'
+
+defineProps(['malplena'])
 </script>
 
 <style scoped lang='scss'>
@@ -21,8 +23,8 @@ import { ref } from 'vue'
   text-align: center;
 }
 .sigelo{
-  color: var(--bnc-h);
-  background-color: var(--bng);
+  color: var(--button);
+  background-color: var(--button-back);
   font-size: 1.2rem;
   line-height: 1.5rem;
   padding: .3rem .1rem;

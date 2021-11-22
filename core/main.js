@@ -29,3 +29,8 @@ const router= createRouter({
 createApp(App)
   .use(router)
   .mount('#app')
+
+// Serviceworker.
+// if('serviceWorker' in navigator){
+//   navigator.serviceWorker.register('sw.js')
+// }

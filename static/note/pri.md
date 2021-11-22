@@ -6,3 +6,5 @@
 - Xai
 - Laoe
 - King
+
+Teksto Projekto => [ligilo](#/tg)

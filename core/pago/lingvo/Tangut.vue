@@ -1,14 +1,17 @@
 <template>
-  <div id='Tangut-bl' lang="tangutx">
     <!-- 西夏字符集，首部件部打印区。 -->
-    <div id="Tangut-cuij">
-      <p v-for="iq in cuijz.flat(1)">
+  <div id='Tangut-bl' lang="tangutx">
+    <div id="Tangut-cuij" :class="jug01||'cuij'">
+      <p
+        v-for="iq in cuijz.flat(1)">
         <Pop len="tangut" v-for="iqz in Array.from(iq)" :tt="iqz"/>
       </p>
     </div>
 
     <!-- 部件列表 -->
-    <div id="Tangut-kap" lang="tangut">
+    <div
+      v-if="jug01"
+      id="Tangut-kap" lang="tangut">
       <p v-for="iz in TangutKap">
         <span v-for="izr in Array.from(iz)" @click="iruKc(izr), tran()">{{izr}}</span>
       </p>
@@ -18,8 +21,8 @@
 
 <script setup>
 import { onMounted, onUpdated, ref } from 'vue'
-const props= defineProps(['jugCuij'])
-const emit= defineEmits(['tutm'])
+const props= defineProps(['jugCuij','jug01'])
+// const emit= defineEmits(['tutm'])
 
 import Pop from '../../kone/Pop.vue'
 
@@ -32,10 +35,10 @@ for(let i in TangutCuij){
 }
 let cuijz= ref(cuij.slice(0,30))
 
-
 // emit传递。
 function tran(e){
-  emit("tutm", {cliz: false})
+  // emit("tutm", {cliz: false})
+  console.log(991,e)
 }
 
 // 组件选取列表。
@@ -51,9 +54,6 @@ function iruKc(e){
 let k2c= ref(true)
 onUpdated(()=>{
   k2c.value= cuijz.value.length >=28? true:false;
-
-  // console.log(444,props.jugCuij)
-  props.jugCuij
 })
 
 
@@ -82,14 +82,16 @@ onMounted(()=>{
 #Tangut-bl{
   display: flex;
   flex-wrap: wrap;
-
   #Tangut-cuij,
   #Tangut-kap{
     flex: 0 1 50%;
     white-space: normal;
     font-size: 1.5rem;
     line-height: 1.5rem;
+
+    transition: flex .3s;
   }
+  #Tangut-cuij[class~='cuij']{flex: 0 1 100%;}
 
   span{
     // font-size: 1.5rem;

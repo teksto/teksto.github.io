@@ -37,7 +37,7 @@ const rPath= [
       {
         path: "nv/:uid?",
         name: "nvs",
-        component: {template: `<h1>女书</h1>`}
+        component: ()=> import("../pago/lingvo/Nv.vue")
       },
       {
         path: "ph/:uid?",
@@ -57,10 +57,10 @@ const rPath= [
     ]
   },
   {
-    path: "/search",
+    path: "/search/:q?",
     name: "serci",
     alias: "/go/search",
-    component: {template: `<h1>Serci</h1>`}
+    component: ()=> import("../pago/serci/Serci.vue")
   },
   {
     path: "/spli",
