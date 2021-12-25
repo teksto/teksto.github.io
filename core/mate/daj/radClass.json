@@ -1,0 +1,213 @@
+// 以下数据为字根表结构。
+{
+  "g":[
+    {
+      "index": "𘠀",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "f":[
+    {
+      "index": "𘠊",
+      "extend": ["𘠦𘠪"],
+      "flatten": [""]
+    }
+  ],
+  "d":[
+    {
+      "index": "𘠋",
+      "extend": [""],
+      "flatten": [""]
+    },
+    {
+      "index": "𘡯",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "s":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "a":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+
+  "h":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "j":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "k":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "l":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "m":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+
+  "t":[
+    {
+      "index": "𘠂",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "r":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "e":[
+    {
+      "index": "",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "w":[
+    {
+      "index": "𘠗",
+      "extend": ["𘡇𘢗"],
+      "flatten": [""]
+    }
+  ],
+  "q":[
+    {
+      "index": "𘠈",
+      "extend": ["𘠣𘠤𘠥"],
+      "flatten": [""]
+    },
+    {
+      "index": "𘠉",
+      "extend": ["𘧘"],
+      "flatten": [""]
+    }
+  ],
+
+  "y":[
+    {
+      "index": "𘠙",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "u":[
+    {
+      "index": "𘫳𘡊",
+      "extend": [""],
+      "flatten": [""]
+    },
+    {
+      "index": "𘠚",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "i":[
+    {
+      "index": "𘡍",
+      "extend": [""],
+      "flatten": [""]
+    },
+    {
+      "index": "𘡌",
+      "extend": [""],
+      "flatten": [""]
+    },
+    {
+      "index": "𘤙",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "o":[
+    {
+      "index": "𘠃𘠄𘠅",
+      "extend": ["𘠜𘠝𘡕𘠞𘠟𘠠"],
+      "flatten": [""]
+    }
+  ],
+  "p":[
+    {
+      "index": "𘡝𘡛𘡓",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+
+  "x":[
+    {
+      "index": "𘠘"
+    },
+    {
+      "index": "𘣄"
+    },
+    {
+      "index": "𘠆",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "c":[
+    {
+      "index": "𘠑",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "v":[
+    {
+      "index": "𘡹",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "b":[
+    {
+      "index": "𘠒",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ],
+  "n":[
+    {
+      "index": "𘠛",
+      "extend": [""],
+      "flatten": [""]
+    }
+  ]
+}

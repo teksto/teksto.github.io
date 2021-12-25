@@ -5,3 +5,6 @@ dist-ssr
 ./pago
 ./pago-ssr
 *.local
+static/res/font/tipz.html
+.gitignore
+buch.html
