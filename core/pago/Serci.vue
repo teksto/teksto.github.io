@@ -1,6 +1,6 @@
 <template>
-  <div id='Splikado'>
-    <h1>拼合字体生成svg\png</h1>
+  <div id='Serci'>
+    <h1>搜索“{{$route.params.q}}”实现中……</h1>
   </div>
 </template>
 

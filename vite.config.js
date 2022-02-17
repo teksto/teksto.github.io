@@ -24,5 +24,7 @@ export default defineConfig({
         // additionalData: `@import "./pago/main.scss"`
       }
     }
-  }
+  },
+
+  server: {}
 })

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="dis" id='Supro' @click="commd">🌩</div>
+  <div v-if="dis" id='Supro' @click="commd">🎈</div>
 </template>
 
 <script setup>
@@ -27,6 +27,7 @@ onMounted(()=>{
     //   document.documentElement.clientHeight,
     //   window.scrollY
     // )
+
   })
 })
 
@@ -47,7 +48,7 @@ onMounted(()=>{
   transition: transform 1s, opacity 3s;
 
   &:hover{
-    background-color: rgba(255,255,255,.2);
+    background-color: rgba(255,255,255,.9);
     transform: translateY(10px);
     opacity: 1;
   }
@@ -59,7 +60,7 @@ onMounted(()=>{
 }
 @keyframes rocket {
   20%{transform: translate3d(0,-10px,0);}
-  40%{transform: translate3d(0,20px,0); opacity: .75;}
+  40%{transform: translate3d(0,-100px,0); opacity: .75;}
   100%{transform: translate3d(0,-1200px,0); opacity: 0;}
 }
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <Eg :malplena="mlp"></Eg>
+  <Eg :redakti="edk">
+    <span v-for="iz in iruEg">{{iz}}</span>
+  </Eg>
 
   <div id='Hejmz'>
     <!-- 主页导航 -->
@@ -11,14 +13,15 @@
         <router-link to="/search/艾默里11奇sda别惹" class="bn">xxx</router-link>
       </div>
       <div class="ero">
-        <!-- <button @click="zoz=!zoz">♻ {{zoz?'全集 📜':'首部件 🧩'}}</button>
-        <button @click="mlp=true">🧼 清空</button> -->
+        <!-- <button @click="zoz=!zoz">♻ {{zoz?'全集 📜':'首部件 🧩'}}</button> -->
+        <button @click="iruEg.pop()">🧽</button>
+        <button @click="iruEg.length=0">🧼 清空</button>
       </div>
     </div>
 
     <!-- 路由显示区 -->
     <div id="Eligspaco">
-      <router-view :jug01="zoz"></router-view>
+      <router-view></router-view>
     </div>
   </div>
 
@@ -27,12 +30,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUpdated, provide, ref } from 'vue'
 import Eg from '../kone/Enigo.vue'
 import Topz from '../kone/Supro.vue'
 
 let zoz= ref(true);
-let mlp= ref(false);
+let edk= ref(true);
+
+// 传给 Enigo 的值。
+let iruEg= ref([])
+// 接收 KeyPop 传来的值。
+function iruKp(e){iruEg.value.push(e)}
+provide('iruKp', iruKp)
 
 </script>
 

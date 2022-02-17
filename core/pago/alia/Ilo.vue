@@ -1,10 +1,11 @@
 <template>
-  <div id='Keyboard'>Ci tiu klavaro!</div>
+  <div id='Splikado'>
+    拼合模块实现。
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-// defineProps([vid])
 </script>
 
 <style scoped lang='scss'></style>

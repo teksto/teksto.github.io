@@ -3,8 +3,8 @@
 const versicer= 1;
 const nomo= 'TEKSTO' + versicer;
 const resFl= [
-  '/',
-  '/index.html',
+  // '/',
+  // '/index.html',
   'res/font/N4694-ciuj.woff2',
   'res/font/NotoSerifTangut-Regular.woff2',
   'res/site/background.jpg',
@@ -28,6 +28,7 @@ self.addEventListener('install', e=>{
 self.addEventListener('fetch', e=>{
   e.respondWith(
     caches.match(e.request).then(fz=>{
+      console.log('Fetch list: ', fz)
       return fz || fetch(e.request).then(cz=>{
         cz.put(e.request, response.clone());
         return response;

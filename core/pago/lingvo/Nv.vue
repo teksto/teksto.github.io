@@ -1,29 +1,104 @@
 <template>
-  <div id='Nvs'>
 
-    <!-- <p>{{djNvs}}</p> -->
-    <span v-for="iz in djNvs">{{iz}}</span>
+<h1>
+  <button @click="diz=true">open</button>
+</h1>  <Dia @pk="pk" v-if="diz">233</Dia>
 
+
+  <div id="Nvs">
+    <div id="areo-nv">
+      <Kp
+        v-for="iz in Array.from(Nvs)"
+        @elz="elez"
+        lingvo="nvs"
+        :tt="iz">
+        <div>字源：{{iroN(iz.codePointAt().toString(16).toUpperCase())}}</div>
+      </Kp>
+    </div>
+
+    <div id="areo-parafrazi" v-if="areoR">
+      <div class="para-x" @click="areoR=false">❌</div>
+      <div class="para-kap" lang="nvs">:{{parazBl}}<small>{{paraz.U}}</small></div>
+      <div class="para-kor">
+        <p>字源：<span>{{paraz.S}}</span></p>
+        <p>释文：
+          <span v-for="iz in paraz.M">{{iz}}、</span>
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import xxx from '../../mate/daj/nv.json'
+import { onMounted, ref } from 'vue'
+import Kp from '../../kone/Keypop.vue'
 
-const djNvs= "𛅰𛅱𛅲𛅳𛅴𛅵𛅶𛅷𛅸𛅹𛅺𛅻𛅼𛅽𛅾𛅿𛆀𛆁𛆂𛆃𛆄𛆅𛆆𛆇𛆈𛆉𛆊𛆋𛆌𛆍𛆎𛆏𛆐𛆑𛆒𛆓𛆔𛆕𛆖𛆗𛆘𛆙𛆚𛆛𛆜𛆝𛆞𛆟𛆠𛆡𛆢𛆣𛆤𛆥𛆦𛆧𛆨𛆩𛆪𛆫𛆬𛆭𛆮𛆯𛆰𛆱𛆲𛆳𛆴𛆵𛆶𛆷𛆸𛆹𛆺𛆻𛆼𛆽𛆾𛆿𛇀𛇁𛇂𛇃𛇄𛇅𛇆𛇇𛇈𛇉𛇊𛇋𛇌𛇍𛇎𛇏𛇐𛇑𛇒𛇓𛇔𛇕𛇖𛇗𛇘𛇙𛇚𛇛𛇜𛇝𛇞𛇟𛇠𛇡𛇢𛇣𛇤𛇥𛇦𛇧𛇨𛇩𛇪𛇫𛇬𛇭𛇮𛇯𛇰𛇱𛇲𛇳𛇴𛇵𛇶𛇷𛇸𛇹𛇺𛇻𛇼𛇽𛇾𛇿𛈀𛈁𛈂𛈃𛈄𛈅𛈆𛈇𛈈𛈉𛈊𛈋𛈌𛈍𛈎𛈏𛈐𛈑𛈒𛈓𛈔𛈕𛈖𛈗𛈘𛈙𛈚𛈛𛈜𛈝𛈞𛈟𛈠𛈡𛈢𛈣𛈤𛈥𛈦𛈧𛈨𛈩𛈪𛈫𛈬𛈭𛈮𛈯𛈰𛈱𛈲𛈳𛈴𛈵𛈶𛈷𛈸𛈹𛈺𛈻𛈼𛈽𛈾𛈿𛉀𛉁𛉂𛉃𛉄𛉅𛉆𛉇𛉈𛉉𛉊𛉋𛉌𛉍𛉎𛉏𛉐𛉑𛉒𛉓𛉔𛉕𛉖𛉗𛉘𛉙𛉚𛉛𛉜𛉝𛉞𛉟𛉠𛉡𛉢𛉣𛉤𛉥𛉦𛉧𛉨𛉩𛉪𛉫𛉬𛉭𛉮𛉯𛉰𛉱𛉲𛉳𛉴𛉵𛉶𛉷𛉸𛉹𛉺𛉻𛉼𛉽𛉾𛉿𛊀𛊁𛊂𛊃𛊄𛊅𛊆𛊇𛊈𛊉𛊊𛊋𛊌𛊍𛊎𛊏𛊐𛊑𛊒𛊓𛊔𛊕𛊖𛊗𛊘𛊙𛊚𛊛𛊜𛊝𛊞𛊟𛊠𛊡𛊢𛊣𛊤𛊥𛊦𛊧𛊨𛊩𛊪𛊫𛊬𛊭𛊮𛊯𛊰𛊱𛊲𛊳𛊴𛊵𛊶𛊷𛊸𛊹𛊺𛊻𛊼𛊽𛊾𛊿𛋀𛋁𛋂𛋃𛋄𛋅𛋆𛋇𛋈𛋉𛋊𛋋𛋌𛋍𛋎𛋏𛋐𛋑𛋒𛋓𛋔𛋕𛋖𛋗𛋘𛋙𛋚𛋛𛋜𛋝𛋞𛋟𛋠𛋡𛋢𛋣𛋤𛋥𛋦𛋧𛋨𛋩𛋪𛋫𛋬𛋭𛋮𛋯𛋰𛋱𛋲𛋳𛋴𛋵𛋶𛋷𛋸𛋹𛋺𛋻"
 
-console.log(821, xxx)
+import Dia from '../../kone/Dia.vue'
+let diz= ref(false)
+function pk(e){diz.value= e}
 
+
+import {Nvs} from '../../mate/daj/TKJN.json'
+import {nvDict} from '../../mate/daj/dict_nv.json'
+
+// 生成快速字典。
+const nMark= ref({})
+function iroN(e){return nMark.value[e]}
+for(let i of nvDict){
+  nMark.value[i.U]= i.S
+}
+
+// 译文信息。
+const areoR= ref(false)
+let paraz= ref(null)
+let parazBl= ref('')
+import Fuse from 'fuse.js'
+const Fi= new Fuse(nvDict, {
+  threshold: .1,
+  keys: ['U']
+})
+
+function elez(e){
+  let uni= e.codePointAt().toString(16)
+  paraz.value= Fi.search(uni)[0].item
+  parazBl.value= e
+  areoR.value= true
+}
 </script>
 
 <style scoped lang='scss'>
 #Nvs{
-  font-family: 'Nvs_unicode_sev';
+  display: inline-flex;
+  #areo-parafrazi{
+    flex: 1 0 30vw;
+    // transition: all 3000ms;
+  }
+}
 
-  span{
-    font-size: 1.5rem;
-    line-height: 1.8rem;
+#areo-parafrazi{
+  position: relative;
+  padding: .3rem;
+  .para-x{
+    padding: .3rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+  border-left: 1px dashed var(--dark-ls);
+  margin-left: .3rem;
+  .para-kap{
+    font-size: 3rem;
+    line-height: 3rem;
+    small{
+      font-size: 1.2rem;
+      line-height: 3rem;
+      color: var(--dark-ls);
+    }
+  }
+  .para-kor{
+    span{color: var(--dark-ls);}
   }
 }
 </style>
