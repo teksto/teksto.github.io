@@ -1,0 +1,12 @@
+name: genSitePage
+on:
+  push:
+    branches: [vpg]
+
+jobs:
+  GenPage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Salutu
+        run: echo 'Say hello~'
