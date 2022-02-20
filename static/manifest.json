@@ -1,0 +1,22 @@
+{
+  "scope":"/",
+  "start_url":"/index.html",
+  "name":"灌园鬻蔬，宜然自得。",
+  "short_name":"晚菘",
+  "description":"庭と野菜は自分に適しています。",
+  "display":"standalone",
+  "orientation":"portrait",
+  "background_color":"#39b54a",
+  "theme_color":"#ffffff",
+  "icons":[{
+    "sizes":"128x128",
+    "src":"res/icon/Cabbage_128.png",
+    "type":"image/png",
+    "purpose": "maskable"
+  },{
+      "sizes":"512x512",
+      "src":"res/icon/Cabbage_512.png",
+      "type":"image/png",
+      "purpose": "any maskable"
+  }]
+}

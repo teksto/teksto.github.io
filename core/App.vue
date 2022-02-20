@@ -1,119 +1,108 @@
+<template>
+
+  <!-- Navigado: hejm, pri. -->
+  <div id="Navigado">
+    <a id="logo" href="javascript:;">
+      <img src="res/cabbage.png" alt="Cabbage logo.">
+    </a>
+    <RouterLink active-class="el-nav" to="/">Hejm</RouterLink>
+    <RouterLink active-class="el-nav" to="/pri">Pri</RouterLink>
+  </div>
+
+  <!-- Vido areo. -->
+  <div id="Pago">
+    <RouterView />
+  </div>
+
+  <!-- Coryrigth. -->
+  <div id="Kopirajto">
+    <p>⊱ <a href="/caa">CCA-a(991,967,69)</a> ⊰</p>
+  </div>
+</template>
+
 <script setup>
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+
+const qq= ref(921)
+
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/mater/cabbage.png" />
+<style lang="scss">
+/* @import '@/mater/bazo.css'; */
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</template>
-
-<style>
-/* @import '@/assets/base.css'; */
-
-#app {
-  max-width: 1280px;
+body{
   margin: 0 auto;
-  padding: 2rem;
+  font-size: .9rem;
+  line-height: 1.2rem;
+  font-family: serif;
+  font-family: var(--lang-hans);
+  --webkit-font-smoothing: antialiased;
+  --moz-osx-font-smoothing: grayscale;
 
+  background-color: var(--bg);
+  color: var(--cl);
+}
+
+:lang(tg), .tg{font-family: 'Tangut_unicode_sev';}
+:lang(nv), .nv{font-family: 'Nvs_unicode_sev';}
+
+/* nav-link hover. */
+a{
+  color: var(--primary);
+  text-decoration: none;
+  &:hover{color: var(--secondary);}
+}
+.el-nav{
+  color: var(--primary);
+  font-weight: 600;
+}
+#Navigado{
+  writing-mode: tb-rl;
+  padding: .3rem .15rem;
+  a{
+    margin: .15rem auto;
+    img{
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    &:hover{font-weight: 600;}
+  }
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#Pago{
+  margin-left: 1.8rem;
+}
+
+#Kopirajto{
+  font-size: .7rem;
+  line-height: .9rem;
+  margin: 3rem auto;
+  text-align: center;
+  color: var(--dark);
+  a{
+    color: var(--dark-lg);
+    &:hover{color: var(--dark);}
+  }
+}
+
+/* font and base. */
+@font-face {
+  font-family: 'Tangut_unicode_sev';
+  src: url('res/font/N4694-ciuj.woff2') format('woff2');
+  font-display: swap;
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Nvs_unicode_sev';
+  src: url('res/font/Nvs.woff') format('woff2');
+  font-display: swap;
+  font-style: normal;
   font-weight: normal;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>

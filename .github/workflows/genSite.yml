@@ -10,3 +10,24 @@ jobs:
     steps:
       - name: Salutu
         run: echo 'Say hello~'
+
+      - name: Tiri 1
+        uses: actions/checkout@v2
+        with:
+          BRANCH: vpg
+
+      - name: Tiri 2
+        run: git branch
+
+      - name: Instali
+        run: npm install
+      
+      - name: Kompili
+        run: npm run build
+
+      - name: Pusi
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          ACCESS_TOKEN: ${{secrets.GSP}}
+          BRANCH: master
+          FOLDER: pago

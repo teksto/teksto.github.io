@@ -12,6 +12,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.1.0",
+    "fuse.js": "^6.5.3",
+    "marked": "^4.0.12",
+    "sass": "^1.49.8",
     "vite": "^2.7.13"
   }
 }

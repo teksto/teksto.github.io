@@ -8,7 +8,8 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./core', import.meta.url)),
+      'vue': 'vue/dist/vue.esm-bundler.js' // 解决不能直接使用 template 的问题。
     }
   },
 
