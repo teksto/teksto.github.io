@@ -21,6 +21,7 @@ jobs:
 
       - name: Instali
         run: npm install
+        run: ls
       
       - name: Kompili
         run: npm run build
