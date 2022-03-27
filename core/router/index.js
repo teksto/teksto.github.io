@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HejmPago from '../pago/Hejm.vue'
+import HejmPago from '../pagoz/Hejm.vue'
 import Tg from '../pagoz/lingvo/Tg.vue'
 import Nv from '../pagoz/lingvo/Nv'
 
