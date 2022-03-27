@@ -2,7 +2,8 @@
   "name": "teksto.site",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "de": "vite",
+    "dev": "vite --host wolfan",
     "build": "vite build",
     "preview": "vite preview --port 5050"
   },

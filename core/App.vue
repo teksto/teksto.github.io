@@ -3,10 +3,11 @@
   <!-- Navigado: hejm, pri. -->
   <div id="Navigado">
     <a id="logo" href="javascript:;">
-      <img src="res/cabbage.png" alt="Cabbage logo.">
+      <img src="@/mater/cabbage.png" alt="Cabbage logo.">
     </a>
     <RouterLink active-class="el-nav" to="/">Hejm</RouterLink>
     <RouterLink active-class="el-nav" to="/pri">Pri</RouterLink>
+    <button @click="sangi(NkB=!NkB)">{{NkB? '🌕': '🌙'}}</button>
   </div>
 
   <!-- Vido areo. -->
@@ -21,10 +22,23 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 
-const qq= ref(921)
+// 白日黑夜转换。
+let NkB= ref(false)
+function sangi(e){
+  if(e){
+    document.documentElement.style.setProperty('--bg', 'var(--white)')
+    document.documentElement.style.setProperty('--cl', 'var(--color)')
+  }else{
+    document.documentElement.style.setProperty('--bg', 'var(--black)')
+    document.documentElement.style.setProperty('--cl', 'var(--white)')
+  }
+}
+
+onMounted(()=> {})
+
 
 </script>
 
@@ -39,6 +53,8 @@ body{
   font-family: var(--lang-hans);
   --webkit-font-smoothing: antialiased;
   --moz-osx-font-smoothing: grayscale;
+
+  transition: background 1500ms, color 1500ms;
 
   background-color: var(--bg);
   color: var(--cl);
@@ -68,6 +84,18 @@ a{
     }
     &:hover{font-weight: 600;}
   }
+  button{
+    appearance: none;
+    border-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    // &::before{content: '🌕';}
+    &:hover{
+      font-size: .9rem;
+    }
+    cursor: pointer;
+  }
   position: fixed;
   top: 0;
   left: 0;
@@ -92,14 +120,14 @@ a{
 /* font and base. */
 @font-face {
   font-family: 'Tangut_unicode_sev';
-  src: url('res/font/N4694-ciuj.woff2') format('woff2');
+  src: url('/res/font/N4694-ciuj.woff2') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: normal;
 }
 @font-face {
   font-family: 'Nvs_unicode_sev';
-  src: url('res/font/Nvs.woff') format('woff2');
+  src: url('/res/font/Nvs.woff') format('woff2');
   font-display: swap;
   font-style: normal;
   font-weight: normal;

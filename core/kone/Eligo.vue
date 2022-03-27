@@ -1,11 +1,12 @@
 <template>
   <div id='Eligo' :contenteditable="rdk">
-    <slot>
-      <div id="sigelo" lang="tg">
-        <span id="sigelo-small">𗇉𗲈</span>
-        <span>𗦍</span>
-      </div>
-    </slot>
+    <div id="sigelo" lang="tg">
+      <span id="sigelo-small">𗇉𗲈</span>
+      <span>𗦍</span>
+    </div>
+  </div>
+  <div id="Eligo-fixed" lang="tg">
+    <slot></slot>
   </div>
 </template>
 
@@ -33,5 +34,16 @@ defineProps(['rdk'])
     border-radius: .3rem;
     background-color: var(--error);
   }
+}
+
+#Eligo-fixed{
+  top: 0;
+  position: sticky;
+  font-size: 3rem;
+  line-height: 3.3rem;
+  background-color: var(--black);
+  text-align: center;
+  padding: .3rem;
+  z-index: var(--ll1);
 }
 </style>

@@ -18,6 +18,7 @@ jobs:
 
       - name: Tiri 2
         run: git branch
+        run: ls
 
       - name: Instali
         run: npm install
