@@ -1,16 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HejmPago from '../pago/Hejm.vue'
+import Tg from '../pago/lingvo/Tg.vue'
+import Nv from '../pago/lingvo/Nv'
 
 // Lingvo mod.
 const lingvo= [
   {
     path: "tg",
     name: "tangut",
-    component: ()=> import("../pago/lingvo/Tg.vue"),
+    // component: ()=> import("../pago/lingvo/Tg.vue"),
+    component: Tg,
     children:[
       {
         path: "u/:uid?",
-        component: ()=> import("../pago/lingvo/Nv.vue")
+        // component: ()=> import("../pago/lingvo/Nv.vue")
+        component: Tg
       }
     ]
   },
@@ -22,7 +26,8 @@ const lingvo= [
       level: 3,
       hidden: false
     },
-    component: ()=> import("../pago/lingvo/Nv.vue")
+    // component: ()=> import("../pago/lingvo/Nv.vue")
+    component: Nv
   }
 ]
 

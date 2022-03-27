@@ -13,16 +13,17 @@ jobs:
 
       - name: Tiri 1
         uses: actions/checkout@v2
-        with:
-          BRANCH: vpg
+        # with:
+        #   BRANCH: vpg
 
       - name: Tiri 2
         run: git branch
+
+      - name: Tiri 3
         run: ls
 
       - name: Instali
         run: npm install
-        run: ls
       
       - name: Kompili
         run: npm run build
