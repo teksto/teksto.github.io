@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HejmPago from '../pagoz/Hejm.vue'
 import Tg from '../pagoz/lingvo/Tg.vue'
-import Nv from '../pagoz/lingvo/Nv'
 
 // Lingvo mod.
 const lingvo= [
@@ -26,7 +25,7 @@ const lingvo= [
       level: 3,
       hidden: false
     },
-    // component: ()=> import("../pagoz/lingvo/Nv.vue")
+    component: ()=> import("../pagoz/lingvo/Nv.vue")
     component: Nv
   }
 ]
