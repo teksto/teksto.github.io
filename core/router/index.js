@@ -26,7 +26,7 @@ const lingvo= [
       hidden: false
     },
     component: ()=> import("../pagoz/lingvo/Nv.vue")
-    component: Nv
+
   }
 ]
 
