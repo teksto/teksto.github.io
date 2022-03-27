@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HejmPago from '../pago/Hejm.vue'
-import Tg from '../pago/lingvo/Tg.vue'
-import Nv from '../pago/lingvo/Nv'
+import Tg from '../pagoz/lingvo/Tg.vue'
+import Nv from '../pagoz/lingvo/Nv'
 
 // Lingvo mod.
 const lingvo= [
   {
     path: "tg",
     name: "tangut",
-    // component: ()=> import("../pago/lingvo/Tg.vue"),
+    // component: ()=> import("../pagoz/lingvo/Tg.vue"),
     component: Tg,
     children:[
       {
         path: "u/:uid?",
-        // component: ()=> import("../pago/lingvo/Nv.vue")
+        // component: ()=> import("../pagoz/lingvo/Nv.vue")
         component: Tg
       }
     ]
@@ -26,7 +26,7 @@ const lingvo= [
       level: 3,
       hidden: false
     },
-    // component: ()=> import("../pago/lingvo/Nv.vue")
+    // component: ()=> import("../pagoz/lingvo/Nv.vue")
     component: Nv
   }
 ]
@@ -48,12 +48,12 @@ const router = createRouter({
     {
       path: '/serci',
       name: 'serci',
-      component: ()=> import('../pago/Serci.vue')
+      component: ()=> import('../pagoz/Serci.vue')
     },
     {
       path: '/pri',
       name: 'pri',
-      component: ()=> import('../pago/Pri.vue')
+      component: ()=> import('../pagoz/Pri.vue')
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
