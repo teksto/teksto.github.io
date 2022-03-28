@@ -7,7 +7,7 @@
 - [Kvar table](https://github.com/tangut/kvina.md)
 
 # Alia
-![晚菘计划](/res/cabbage.png)
+![晚菘计划](/res/tube.png)
 
 > 灌園鬻蔬，宜然自得。
 - [Web] evoluprogreso estas [35%]
