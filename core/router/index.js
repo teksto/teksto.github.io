@@ -1,19 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HejmPago from '../pagoz/Hejm.vue'
-import Tg from '../pagoz/lingvo/Tg.vue'
 
 // Lingvo mod.
 const lingvo= [
   {
     path: "tg",
     name: "tangut",
-    // component: ()=> import("../pagoz/lingvo/Tg.vue"),
-    component: Tg,
+    component: ()=> import("../pagoz/lingvo/Tg.vue"),
     children:[
       {
         path: "u/:uid?",
-        // component: ()=> import("../pagoz/lingvo/Nv.vue")
-        component: Tg
+        component: ()=> import("../pagoz/lingvo/Tg.vue")
       }
     ]
   },
@@ -26,12 +23,9 @@ const lingvo= [
       hidden: false
     },
     component: ()=> import("../pagoz/lingvo/Nv.vue")
-
   }
 ]
 
-// serci mod.
-const serci= {}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,19 +39,14 @@ const router = createRouter({
       children: lingvo
     },
     {
-      path: '/serci',
+      path: '/serci/:q?',
       name: 'serci',
       component: ()=> import('../pagoz/Serci.vue')
     },
     {
-      path: '/pri',
+      path: '/pri/:pg?',
       name: 'pri',
       component: ()=> import('../pagoz/Pri.vue')
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import('../views/Pri.vue')
-      // component: {template: "<div>Nula'z</div>"}
     }
   ]
 })

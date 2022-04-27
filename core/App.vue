@@ -17,7 +17,7 @@
 
   <!-- Coryrigth. -->
   <div id="Kopirajto">
-    <p>⊱ <a href="/caa">CCA-a(991,967,69)</a> ⊰</p>
+    <p>⊱ <router-link to="/pri/cca">CCA-a(991,967,69)</router-link> ⊰</p>
   </div>
 </template>
 
@@ -60,8 +60,8 @@ body{
   color: var(--cl);
 }
 
-:lang(tg), .tg{font-family: 'Tangut_unicode_sev';}
-:lang(nv), .nv{font-family: 'Nvs_unicode_sev';}
+:lang(tg), .tg{font-family: var(--lang-hans),  'Tangut_unicode_sev';}
+:lang(nv), .nv{font-family: var(--lang-hans), 'Nvs_unicode_sev';}
 
 /* nav-link hover. */
 a{
@@ -133,4 +133,24 @@ a{
   font-weight: normal;
 }
 
+/* kompostado. */
+// h1, h2, h3, h4, h5,
+// .h1, .h2, .h3, .h4, .h5{
+//   font-weight: 500;
+//   line-height: 1.2rem;
+//   margin-top: 0;
+//   margin-bottom: .3rem;
+// }
+// p{}
+a, ins, u{
+  text-decoration-skip: ink edges;
+}
+// abbr[title]{}
+// mark{}
+code{
+  background-color: rgba(180,180,180,.5);
+  border-radius: .2rem;
+  padding: .3rem;
+  font-size: 80%;
+}
 </style>

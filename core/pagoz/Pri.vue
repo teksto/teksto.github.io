@@ -2,10 +2,10 @@
 
   <!-- Navigado. -->
   <div id="Pri-nav">
-    <span>🧭</span>
-    <a @click="malfer('pri')">关于</a>
-    <a @click="malfer('elsuti')">资源</a>
-    <a @click="malfer('alia')">其它</a>
+    <span>🧭 </span>
+    <RouterLink to="/pri">Pri</RouterLink>
+    <RouterLink to="/pri/mater">Mater</RouterLink>
+    <RouterLink to="/pri/alia">Alia</RouterLink>
   </div>
 
   <!-- Artikolo. -->
@@ -14,40 +14,50 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { marked } from 'marked'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+const Rr= useRoute()
 
 // 文章内容。
-let enh= ref(null);
+let enh= ref(null)
 
-// 默认文件地址。
-let fl= ref('doc/pri.md');
+onMounted(()=> {
+  let fl= Rr.params.pg? '../doc/'+ Rr.params.pg +'.md': './doc/pri.md';
 
-function malfer(e){
-  fl.value= 'doc/' + e +'.md';
+  fetch(fl)
+    .then(r=> r.text())
+    .then(d=> enh.value= marked(d))
+})
+
+// 获取本地文件。
+onBeforeRouteUpdate(e=> {
+  let uz= e.params.pg || 'pri'
+  genMark('../doc/'+ uz +'.md')
+})
+
+function genMark(ul){
+  fetch(ul)
+    .then(r=> r.text())
+    .then(d=> enh.value= marked(d))
 }
-
-fetch(fl.value)
-  .then(rz=> rz.text())
-  .then(dr=> enh.value= marked(dr));
-
-// onMounted(()=>{})
-watch(fl, nz=> fetch(nz).then(rz=> rz.text()).then(dr=> enh.value= marked(dr)))
-
 </script>
 
 <style scoped lang='scss'>
 #Pri-nav{
-  margin: 12% 15% 0;
+  margin: .3rem 15%;
   cursor: pointer;
   a{
     padding: .3rem;
   }
-  font-size: 1.2rem;
-  font-weight: 600;
-  line-height: 1.8rem;
 }
 #Pri-arti{
-  margin: 1.2rem 15%;
+  margin: .3rem 15%;
+}
+@media (max-width: 800px) {
+  #Pri-nav,
+  #Pri-arti{
+    margin: .3rem auto;
+  }
 }
 </style>

@@ -13,7 +13,7 @@
 
 <script setup>
 import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 import { TangutCuij, TangutKap } from '../../mater/daj/TKJN'
 import RK from '../../kone/RowKey.vue'
 
@@ -45,6 +45,14 @@ onMounted(()=> {
     ){}
   }
 
+})
+
+// 路由守卫：打开Dialog单字用。
+let vid_dia= ref(false)
+onBeforeRouteUpdate(e=>{
+  if(e.params.uid){
+    vid_dia.value= true
+  }
 })
 
 </script>
