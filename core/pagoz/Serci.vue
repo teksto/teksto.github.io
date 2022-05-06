@@ -1,512 +1,455 @@
 <template>
-
-<div id="Serci">
-  <div id="Enigo">
-    <div id="Alirebleco">
-      <div id="Formo">
-        <input
-          v-model.trim="Qz"
-          @keyup.enter="exe_serci"
-          @focus="vid_klavaro= true"
-          @blur="vid_klavaro= false"
-          type="text" lang="tg" placeholder="建议优先使用繁体进行检索。">
-        <button @click="exe_serci">🔍</button>
-      </div>
-
-      <div id="Opcioj">
-        <input type="checkbox" name="Opciojz" id="frazo" hidden v-model="agoFarzo">
-        <input type="checkbox" name="Opciojz" id="sangi" hidden v-model="agoSangi">
-        <!-- 左侧：搜索目录（选择字典） -->
-        <div id="opc-celo">
-          <select name="Opciojz" disabled="true" v-model="agoDz">
-            <option value="Dz_tg" selected>西夏文</option>
-            <option value="Dz_nv">女书</option>
-            <option disabled="true" value="Dz_jzp">减字</option>
-            <option disabled="true" value="Dz_ph">八思巴</option>
-            <option disabled="true" value="Dz_kh">契丹文</option>
-            <option disabled="true" value="Dz_jc">女真文</option>
-            <option disabled="true" value="Dz_ciuj">搜索全部</option>
-          </select>
-        </div>
-        <!-- 右侧：设置项目 -->
-        <div id="opc-ago">
-          <label for="deep">
-            <span style="opacity: .5">匹配</span>
-            {{agoDeep<=100? '低': agoDeep>100 & agoDeep<=600? '中': '高'}}
-            <input type="range" min="0" max="1000" step="10" name="Opcioj" id="deep" v-model="agoDeep">
-          </label>
-          <label data-el="词组" for="frazo"></label>
-          <label data-el="繁体" for="sangi"></label>
-        </div>
-      </div>
-      <!-- 搜索历史 -->
-      <div v-if="vid_hiz" id="Historio">
-        <div id="his-kap">
-          <div id="his-kap--ti">Historio</div>
-          <div id="his-kap--close">
-            <a @click="hiz_klara">close</a>
+  <div id='Serci'>
+    <!-- Serci eniru -->
+    <div id="Eniru">
+      <!-- Eniga areo -->
+      <div id="Eniga">
+        <!-- input from -->
+        <div id="Formo">
+          <div id="formo-ipt">
+            <input
+              v-model.trim.lazy="Qz"
+              @keyup.enter="Trovi(Qz)"
+              type="text" placeholder="输入你要检索的内容。">
+            <button @click="Trovi(Qz)">🔍</button>
+          </div>
+          <div id="formo-opc">
+            <select v-model="Opcioj_dz">
+              <option value="Tangut" selected>西夏文</option>
+              <option value="Phasba">八思巴</option>
+              <option value="Nvs">女书</option>
+              <option value="Cuij">多语合查</option>
+            </select>
+            <div id="formo-agordo">
+              <div id="agordo-bl">
+                <div @click="preciza()">检索精度 {{preciza()}}</div>
+                <div @click="vid_klavaro=!vid_klavaro">键盘</div>
+                <div @click="fnAgo(true)">设置</div>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- 打印历史列表 -->
-        <router-link
-          v-for="iz in hiz.split(',')"
-          :to="`/serci?q=${iz}`"
-          class="label">{{iz}}</router-link>
+        <!-- history areo -->
+        <div
+          v-if="loka_hiz()? vid_hiz:false"
+          id="Historio">
+          <div id="his-kap">
+            <h3>Historio</h3>
+            <a
+              :style="loka_hiz() || 'opacity: .5'"
+              @click="malplena">🧼</a>
+          </div>
+          <div id="his-lz">
+            <RouterLink
+              class="label"
+              v-for="hz in loka_hiz()"
+              :to="'/serci?q=' + hz">{{hz}}</RouterLink>
+          </div>
+        </div>
+      </div>
+      <!-- Ilustri -->
+      <div id="Ilustri">Instruction guide.
+        {{vid_agordo}}
       </div>
     </div>
-    <!-- 搜索说明 -->
-    <div id="Manlibro">
-      <h1>Destion</h1>
-      <button @click="skribi()">Skribi historio</button>
-      <p>
-        <RouterLink to="/serci">Nono</RouterLink>
-      </p>
-      <button @click="agoPresi">Agotion</button>
+
+    <!-- Rezultoj montrigas -->
+    <div id="Montra">
+      <div id="montra-kap">
+        <!-- Rezulta teksta kopiareo -->
+        <div id="Kopio">Result test, for copying area.</div>
+        <!-- Listo de serciezltoj -->
+        <div id="Ilobreto">control for result output.</div>
+      </div>
+      <div id="Listo">
+        <!-- Presa listo -->
+        <div
+          v-if="rezulto"
+          class="vico">
+          <!-- Unue krado -->
+          <div class="unue">
+            <div class="kapz">
+              <div class="kontoloj">🟢</div>
+              <div class="majuskla">爱</div>
+            </div>
+            <div class="operacio">
+              <span>检索到 123 个结果</span>
+            </div>
+          </div>
+          <!-- listo krado -->
+          <div
+            v-for="iz in rezulto"
+            class="krado">
+            <ruby>{{String.fromCodePoint(parseInt(iz.item.U, 16))}}
+              <rt>{{iz.item.P? iz.item.P[0]:null}}</rt>
+            </ruby>
+            <div class="parafrazo">
+              <div
+                v-if="iz.item.F"
+                class="legi">{{iz.item.F}}</div>
+              <div class="tablo">
+                <p v-for="mz in iz.item.M1">{{mz}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DOME -->
+        <!-- {{rezulto}} -->
+        <!-- DOME -->
+
+      </div>
     </div>
   </div>
 
-  <!-- 键盘组件 -->
-  <!-- <div v-if="vid_klavaro" id="Klavaro"></div> -->
-
-  <div id="Presi">
-    <!-- 选定结果打印区。 -->
-    <div id="Tekstkesto">
-      <h1>Presa-eligo areo.</h1>
-      搜索【{{Q}}】结果：{{rezulto.length}}
-    </div>
-
-    <!-- 搜索结果列表操作区。 -->
-    <div id="Elektu">
-
-      <div class="lz-row">
-        <!-- 首字分列 -->
-        <div class="col-Unue">
-          <div class="info">
-            <div class="vorto">爱</div>
-            <div class="vorto-small">当前结果 {{agoDeep}} 个</div>
-          </div>
-          <div class="operacio">
-            <input type="range" min="0" max="1000" step="10" name="Opcioj" id="deep" v-model="agoDeep">
-            <div class="operacio-stango">
-              <span>设置精度：</span>
-              <input type="number" name="Opz" v-model="agoDeep">
-              <span>{{agoDeep<=100? '🔻': agoDeep>100 & agoDeep<=600? '🟢': '🔺'}}</span>
-            </div>
-          </div>
-        </div>
-        <!-- 列表输出 -->
-        <div class="col" v-for="iz in rezulto">
-          <div class="kap">
-            <div class="vorto" lang="tg">
-              <Gt :uid="iz.item.U" lang="tg" />
-            </div>
-            <div class="info">
-              <div>{{iz.item.P[0]}}</div>
-              <div>{{iz.item.F}}</div>
-            </div>
-          </div>
-          <div class="parafrazi">
-            <p v-for="mz in iz.item.M1">{{mz}}</p>
-          </div>
-        </div>
+  <!-- Klavarareo -->
+  <div v-if="vid_klavaro" id="Klavar">This keyboard.</div>
+  <!-- Agordo dialog fenestro -->
+  <Dia :vid="vid_agordo">
+    <div id="Ago-tablo">
+      <div class="vico">
+        <label for="sangi"><input type="checkbox" name="ATL" id="sangi"> 简繁切换</label>
+        <label for="frazo"><input type="checkbox" name="ATL" id="frazo"> 词组/逐字</label>
+        <label for="sangi"><input type="checkbox" name="ATL" id="sangi"> 简繁切换</label>
       </div>
-<!-- dome -->
-      <ul>
-        <li>{{rezulto.length}}</li>
-        <li v-for="fz in rezulto">
-          <Gt :uid="fz.item.U" lang="tg" /> - <span style="opacity: .5">{{fz.item.F}} / {{fz.item.P}}：</span>{{fz.item.M1}}
-        </li>
-      </ul>
-<!-- dome -->
-
+      <!-- 字典：项目（MI or E or P） -->
     </div>
-
-  </div>
-</div>
-
+  </Dia>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import KB from '../kone/Klavaro.vue'
+import { onBeforeUpdate, onMounted, ref, watch } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
+import Fuse from 'fuse.js'
+import Dia from '../kone/Dialog.vue'
 
-// 路由相关。
-const Rr= useRoute();
-// 西夏五笔键盘。
+let Opcioj_dz= ref('Tangut')
 let vid_klavaro= ref(false)
+let vid_agordo= ref(false)
+let vid_hiz= ref(true)
+function preciza(e){
+  // 默认输出100精度，每点一次增加100。
+  return '🟢'
+}
 
-// 搜索历史记录相关。
-let hiz= ref(localStorage.getItem("serci_hiz"))
-let vid_hiz= ref(true);
-function hiz_savi(daj){
-  const hiz_local= localStorage.getItem("serci_hiz")
+/**
+ * 字典数据处理。
+ * 输出对应字典（数组）
+ */
+function Dzj(e){
+  let dzn= 'Dz_' + e;
+  let loka= localStorage.getItem(dzn)
 
-  if(hiz_local.split(",").indexOf(daj) < 0){
-    const hiz_n= hiz_local.length > 0? daj + ',' + hiz_local: daj;
+  if(loka){
+    return JSON.parse(loka)[e]
+  }else{return [{err: false}]}
+}
 
-    localStorage.setItem("serci_hiz", hiz_n)
-    hiz.value= localStorage.getItem("serci_hiz")
+/**
+ * 历史记录处理数据。
+ */
+function malplena(e){
+  localStorage.removeItem('serci_hiz')
+  vid_hiz.value= false
+}
+function loka_hiz(e){
+  if(localStorage.getItem('serci_hiz')){
+    return localStorage.getItem('serci_hiz').split(',')
+  }else{
+    return false
   }
 }
-// 清空搜索记录操作。
-function hiz_klara(e){
-  vid_hiz.value= false;
-  localStorage.setItem("serci_hiz", "")
+function savi_hiz(e){
+  const pre= loka_hiz()
+  if(loka_hiz()){
+    if(pre.indexOf(e)< 0){pre.unshift(e)}
+    localStorage.setItem('serci_hiz', pre)
+  }else{
+    localStorage.setItem('serci_hiz', e)
+    vid_hiz.value= true
+  }
 }
 
-// 搜索前置。
-let Q= ref()
-Q.value= Rr.query.q || Rr.params.q || null;
-let Qz= ref(null)
-let rezulto= ref([])
-// 搜索设置部分：全部（默认为‘汉夏’）、模糊搜索广度（默认20）、指定项目待定。
-let agoAmp= ref(false)
-let agoLargo= ref(20)
-let agoSpe= ref(null)
-let agoKey= ref("M1")
-// Fuse.js
-import {Tangut as Dz_tg} from '../mater/daj/DzTangut'
-import Fuse from 'fuse.js'
-const F= new Fuse(Dz_tg,{
-  keys: [agoKey.value],
+
+/**
+ * Fuse 检索操作。
+ */
+function agdos({
+  dz= 'tangut',
+}={}){
+}
+const Fi= new Fuse(Dzj('tangut'), {
+  keys: ['M1'],
   threshold: .1,
   distance: 600
-});
+})
 
-// 执行搜索操作。
-import ZH from '../kone/h2h.js'
-import ENE from '../kone/eneGamo.js'
-function exe_serci(e){
-  // 获取搜索内容。
-  let enh= null
-  let dz= 'Dz_tg'
-  let ob= 'M1'
+const Rr= useRoute()
+console.log(Rr.query.s)
 
-  const daj= Qz.value;
-  const gustigi= ENE(daj);
+/**
+ * 检索操作。
+ * 输出对象列表
+ */
+let Qz= ref(null)
+let rezulto= ref(null)
+function Trovi(e){
+  const vl= e || false;
 
-  switch(gustigi.lang){
-    case 'en':
-      break;
-    case 'zh':
-      enh= ZH(daj)
-      console.log(11)
-      break;
-    case 'tg':
-      break;
-    case 'nv':
-      console.warn("Sugesto: Vortara preparado...")
-      break;
-    case 'pg':
-      console.warn("Averti: Ankorau neniuj rimedoj.")
-      break;
-    default:
-      console.error("Err: Ekster antaudeterminita lingva gamo!")
-  }
+  // 比对如果是中文则转换成繁体。
 
-  // 字串转成数组操作。
-
-
-  // 执行搜索。
-
-  // 写入历史记录。
-  hiz_savi(daj)
-
-  // console.log(99121, ENE(daj))
-  console.log(222, enh)
+  // 写入历史。
+  if(vl){savi_hiz(vl)}
 }
-
-
-function serci(slos, {}={}){
-  let enh= slos;
-  if(!Array.isArray(slos)){
-    if(/^[a-zA-Z]/gi.test(slos)){
-      enh= slos.split(" ")
-    }else{
-      enh= [slos]
-    }
-  }
-
-  return enh
-}
-
-
-
-// 搜索设置操作。
-function ask(slos, {}={}){}
-
-
 
 // 周期操作。
 onMounted(()=>{
-  if(Q.value){rezulto.value= F.search(Q.value)}
-  vid_hiz.value= localStorage.getItem("serci_hiz").length > 0? true:false;
-})
-// 路由守护。
-onBeforeRouteUpdate(e=> {
-  rezulto.value= F.search(e.query.q || e.params.q)
-})
+  /**
+   * 字典数据写入本地存储。
+   * 判断 localstorage 是否存在字典数据，并进行写入操作。
+   */
+  const DzUl= {
+    "Dz_tangut": "./datumoj/DzTangut.json",
+    "Dz_nvs": "./datumoj/DzNvs.json"
+  }
+  if(
+    !localStorage.getItem("Dz_tangut") &
+    !localStorage.getItem("Dz_nvs")){
+    for(let iz in DzUl){
+      fetch(DzUl[iz])
+      .then(r=> r.json())
+      .then(d=> localStorage.setItem(iz, JSON.stringify(d)))
+    }
+    localStorage.setItem("TMP", +new Date)
+  }
 
-// ===============================
-// Gt unicode output dome.
-import Gt from '../kone/Gt.vue'
-function skribi(){
-  let arr= ['草','木','金','馨怡','李春燕成呀电在','艺术家','出女妖','皓腕凝霜雪中','草木灰中','基数']
-  localStorage.setItem("serci_hiz", arr)
-}
+  /**
+   * Query 自动检索操作。
+   */
+  if(Rr.query.q){rezulto.value= Fi.search(Rr.query.q)}
 
-let agoDz= ref('Dz_tg')
-let agoSangi= ref(true)
-let agoFarzo= ref(true)
-let agoDeep= ref(600)
-function agoPresi(e){console.log(5631, agoSangi.value, agoFarzo.value, agoDeep.value, agoDz.value)}
+  // localStorage.setItem('serci_hiz','草,桃花,不知道啦,wolf,国家')
+})
+onBeforeUpdate(()=>{})
+// 路由守护监控。
+onBeforeRouteUpdate(eq=>{
+  if(eq.query.q){rezulto.value= Fi.search(eq.query.q)}
+})
 </script>
 
 <style scoped lang='scss'>
-@media only screen and (max-width: 800px){
-  #Serci{
-    display: block!important;
-    margin: 0 .3rem 0 0;
-    #Enigo{
-      min-width: auto;
-    }
-  }
-}
-
 #Serci{
   display: flex;
+  #Eniru{
+    flex: 0 1 380px;
+    max-width: 30%;
+    min-width: 380px;
+  }
+  #Montra{
+    flex: 1 0 auto;
+    padding: .6rem;
+    width: calc(100% - 380px - 1.8rem);
+  }
+  @media (max-width: 800px){
+    display: block;
+    #Eniru{max-width: 98%!important;}
+  }
 }
 
-#Enigo{
-  flex: 0 1 30vw;
-  margin-top: .6rem;
-  min-width: 380px;
-
+#Eniga{
+  background-color: var(--dark);
+  margin: .6rem auto;
+  padding: .3rem;
+  border-radius: .3rem;
   #Formo{
-    padding: .3rem;
-    display: flex;
-    width: auto;
-
-    input,
-    button{
-      appearance: none;
-      border-style: none;
-      outline: transparent;
-      font-size: 1rem;
-      line-height: 1.5rem;
-      padding: .3rem .6rem;
-    }
-
-    input{
-      border-radius: .3rem 0 0 .3rem;
-      flex: 1 0 auto;
-    }
-    button{
-      border-radius: 0 .3rem .3rem 0;
-      flex: 0 1 auto;
-      &:hover{
-        background-color: var(--gray);
-      }
-    }
-  }
-
-  #Opcioj{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: .3rem;
-    #opc-celo,
-    #opc-ago{flex: 1 0 auto;}
-    #opc-ago{text-align: right;}
-    select,
-    label{
-      color: var(--cl);
-      background-color: var(--dark-lg);
-      &:hover{background-color: var(--dark-lw);}
-      cursor: pointer;
-      transition: all 500ms;
-    }
-    select{
-      border-style: none;
-      border-radius: .3rem;
-      padding: .3rem .6rem;
-      display: inline-block;
-    }
-    label{
-      flex: 1 0 auto;
-      padding: .3rem .6rem;
-      &:first-child{border-radius: .3rem 0 0 .3rem;}
-      &:last-child{border-radius: 0 .3rem .3rem 0;}
-    }
-    // 选项操作。
-    label[for="frazo"]::before{content: '逐字';}
-    label[for="sangi"]::before{content: '简体';}
-    #frazo:checked ~ #opc-ago > label[for="frazo"],
-    #sangi:checked ~ #opc-ago > label[for="sangi"]{
-      &::before{
-        content: attr(data-el);
-      }
-    }
-    label[for="deep"]{
-      // transition: display 3s;
-      input{display: none;}
-      &:hover{
-        input{display: inline-block;}
-      }
-    }
-  }
-
-  #Historio{
-    padding: .3rem;
-    #his-kap{
+    padding: .3rem 0;
+    #formo-ipt{
       display: flex;
       align-items: center;
-      justify-content: center;
-      margin: .6rem auto .3rem;
-      #his-kap--ti{
-        font-weight: 600;
-        flex: 1 0 auto;
-        opacity: .5;
+      input,
+      button{
+        appearance: none;
+        border-style: none;
+        outline: transparent;
+        // background: transparent;
+        font-size: 1rem;
+        line-height: 1.2rem;
+        padding: .3rem .6rem;
       }
-      #his-kap--close{
-        flex: 1 0 auto;
+      input{
+        width: 100%;
+        border-radius: .3rem 0 0 .3rem;
+        &:hover{background-color: var(--gray-lg);}
+      }
+      button{
+        border-radius: 0 .3rem .3rem 0;
+        &:hover{background-color: var(--gray);}
+        cursor: pointer;
+      }
+    }
+    #formo-opc{
+      display: flex;
+      align-items: center;
+      select{
+        flex: 0 1 90px;
+        // appearance: none;
+        border-style: none;
+        outline: transparent;
+        background-color: var(--dark-lg);
+        color: var(--gray);
+        padding: .15rem .3rem;
+        border-radius: .3rem;
+      }
+      #formo-agordo{
+        flex: 1 0 calc(100% - 90px);
         text-align: right;
-        & > a{
-          opacity: .5;
-          &:hover{opacity: 1;}
+        #agordo-bl{
+          display: inline-flex;
+          background-color: var(--dark-lg);
+          padding: 0 .3rem;
+          border-radius: .3rem;
+          & > div{
+            flex: 1 0 auto;
+            padding: .15rem .3rem;
+            &:hover{background-color: var(--dark);}
+          }
           cursor: pointer;
         }
       }
+      color: var(--gray);
+      margin-top: .3rem;
+      opacity: .7;
     }
   }
-
-  #Alirebleco{
-    padding: .3rem;
-    border-radius: .3rem;
-    background-color: var(--dark);
-    position: relative;
-    #Klavaro{
-      width: 100%;
-      position: absolute;
-      left: 0;
-    }
-  }
-}
-
-#Presi{
-  flex: 0 1 auto;
-  padding: .6rem;
-}
-
-// blokelemento.
-.lz-row{
-  display: flex;
-  flex-wrap: wrap;
-  color: var(--white);
-  .col{
-    cursor: pointer;
-    width: 120px;
-    height: 120px;
-    margin: .15rem;
-    padding: .3rem;
-    flex: 0 1 120px;
-    border-radius: .3rem;
-    background-color: var(--dark);
-    .kap{
+  #Historio{
+    margin-bottom: .3rem;
+    #his-kap{
       display: flex;
       align-items: center;
-      .vorto{
-        font-size: 1.8rem;
-        line-height: 2.1rem;
-        flex: 0 1 2.1rem;
-        margin: auto .6rem;
-      }
-      .info{
-        opacity: .5;
-        font-size: .5rem;
-        line-height: .9rem;
-        flex: 0 1 auto;
-        & > div{margin: .1rem auto .3rem;}
-      }
-    }
-    .parafrazi{
-      opacity: .5;
-      font-size: .5rem;
-      line-height: .9rem;
-
-      height: 60px;
-      overflow: hidden;
-      cursor: default;
-      &:hover{
-        overflow: auto;
-        &::-webkit-scrollbar{display: none;}
-      }
-
-      border-top: 1px dashed var(--gray);
       padding: .3rem 0;
-    }
-    transition: transform 800ms;
-    &:hover{
-      z-index: var(--ll1);
-      box-shadow: 0 0 1rem var(--dark-lg);
-      transform: scale(1.2);
+      margin-bottom: .3rem;
+      border-bottom: 1px dashed var(--dark-lg);
+      a{
+        flex: 1 0 auto;
+        text-align: right;
+        cursor: pointer;
+      }
+      h3{margin: 0;}
     }
   }
+  color: var(--white);
+}
+// #Ilustri{}
 
-  .col-Unue{
-    .info,
-    .operacio{
-      background-color: var(--dark);
-      border-radius: .3rem;
-      padding: .3rem;
-      margin: .3rem;
-    }
-    .info{
-      text-align: right;
-      .vorto{
+// lqyout.
+#montra-kap{
+  position: sticky;
+  top: 0;
+  #Kopio{
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    font-family: var(--lang-baza), 'Tangut_unicode_sev', 'Nvs_unicode_sev';
+    height: 1.5rem * 3;
+    max-height: 1.5rem * 3;
+    overflow-y: auto;
+    // display: none;
+  }
+  #Ilobreto{
+    margin: .3rem auto;
+    text-align: right;
+  }
+  background-color: var(--bg);
+  box-shadow: 0 .3rem .9rem var(--block);
+  z-index: var(--ll2);
+}
+// #Listo{}
+// listo & block.
+.vico{
+  display: flex;
+  flex-wrap: wrap;
+  .unue{
+    background-color: var(--dark);
+    border-radius: .3rem;
+    padding: .1rem .3rem;
+    margin: .1rem;
+    // display: inline-block!important;
+    .kapz{
+      display: flex;
+      align-items: center;
+      .kontoloj{
+        flex: 0 1 auto;
+        cursor: pointer;
+      }
+      .majuskla{
+        flex: 1 0 auto;
         font-size: 1.8rem;
         line-height: 2.1rem;
-        font-family: Kaiti, var(--lang-hans);
+        text-align: right;
+        font-family: KaiTi, 'Tangut_unicode_sev', 'Nvs_unicode_sev';
       }
-      .vorto-small{opacity: .5;}
     }
-    .operacio{
-      input[type="range"]{width: 100%;}
-      input[type="number"]{
-        appearance: none;
-        border-style: none;
-        background: transparent;
-        text-align: center;
-        color: var(--white);
-        width: 3rem;
+    .operacio{opacity: .5;}
+    color: var(--dark-ls);
+  }
+  .krado{
+    background-color: var(--dark);
+    border-radius: .3rem;
+    padding: .1rem .3rem;
+    margin: .1rem;
+    ruby{
+      font-size: 1.8rem;
+      line-height: 2.1rem;
+      font-family: Kaiti, 'Tangut_unicode_sev', 'Nvs_unicode_sev';
+      rt{opacity: .5;}
+    }
+    .parafrazo{
+      margin: 0 .3rem;
+      opacity: .5;
+      .legi{
+        font-size: .7rem;
+        line-height: .9rem;
+        padding-bottom: .3rem;
+        margin-bottom: .3rem;
+        border-bottom: 1px dashed var(--gray);
       }
-      .operacio-stango{
-        opacity: .5;
-        span{
-          font-size: .5rem;
-          line-height: .9rem;
-        }
+      .tablo{
+        font-size: .7rem;
+        line-height: .9rem;
+        p{margin: 0;}
       }
+      display: none;
+    }
+    color: var(--dark-ls);
+    display: flex;
+    cursor: default;
+    &:hover{
+      transform: scale(1.2);
+      color: var(--white);
+      border: 1px solid var(--dark-lg);
+      box-shadow: 0 0 1rem var(--block);
+      .parafrazo{display: block;}
+      z-index: var(--ll2);
     }
   }
 }
 
-// label.
+// label & tag.
+// label,
 .label{
-  display: inline-block;
+  color: var(--gray);
+  background-color: var(--dark-lg);
   white-space: nowrap;
-  color: var(--black);
-  background-color: var(--gray);
-  border-radius: .3rem;
-  padding: .3rem .6rem;
+  display: inline-block;
   margin: .1rem;
-  font-size: .9rem;
+  padding: .3rem .6rem;
+  border-radius: .3rem;
   line-height: .9rem;
+  font-size: .7rem;
   &:hover{
-    background-color: var(--gray-lg);
-    color: var(--dark-lw);
+    // background-color: var(--dark-ls);
+    color: var(--dark);
   }
-  font-family: 'Tangut_unicode_sev', 'Nvs_unicode_sev', var(--lang-hans);
+  transition: color 800ms;
+  cursor: default;
 }
 </style>

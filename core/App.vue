@@ -7,6 +7,7 @@
     </a>
     <RouterLink active-class="el-nav" to="/">Hejm</RouterLink>
     <RouterLink active-class="el-nav" to="/pri">Pri</RouterLink>
+    <RouterLink to="/serci">Serci</RouterLink>
     <button @click="sangi(NkB=!NkB)">{{NkB? '🌕': '🌙'}}</button>
   </div>
 
