@@ -11,8 +11,8 @@ node_modules
 .DS_Store
 dist
 dist-ssr
-pago
-pago-ssr
+www
+www-ssr
 coverage
 *.local
 
@@ -28,6 +28,3 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-
-# Other
-README.md

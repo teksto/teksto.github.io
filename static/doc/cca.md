@@ -1,5 +1,11 @@
-# CCA a991 a967 a69
+# MEM-DIFINITA INTERKONSENTO CCA
 
-- a991: kajsdlajdak
-- a967: aslkakjdadj  kajsd aljd al
-- a69: kljla jlkj sdajklj lk.
+Ci tiu verko kaj giaj derivajoj estas submetitaj al la jena deklaro:
+
+> a: Estas por generalaj rapidaj deklaroj.
+
+- 71: Sanga deklaro(Privata projekto).
+- 906: Pubikaj domajnaj deklaroj de verkoj(car ili enhavas enhavon de aliaj presitaj verkoj).
+- 991: Vi povas libere kopii, transdoni, au aceti.
+
+[:Reiri](../)

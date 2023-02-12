@@ -1,8 +1,9 @@
 name: genSitePage
 on:
   push:
+    # 切换分支。
     branches: [vpg]
-
+# 计划1（生成vue page 并 提交到 mastar）。
 jobs:
   GenPage:
     runs-on: ubuntu-latest
@@ -24,7 +25,7 @@ jobs:
 
       - name: Instali
         run: npm install
-      
+
       - name: Kompili
         run: npm run build
 
@@ -33,4 +34,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{secrets.GSP}}
           BRANCH: master
-          FOLDER: pago
+          FOLDER: www

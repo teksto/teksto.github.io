@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'url'
+import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -8,16 +8,14 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./core', import.meta.url)),
-      'vue': 'vue/dist/vue.esm-bundler.js' // 解决不能直接使用 template 的问题。
+      '@': fileURLToPath(new URL('./pago', import.meta.url)) // 修改 assetsDir 后需同时修改，保证静态(mater)资源调用。
     }
   },
 
-  publicDir: "static",
+  // 修改相关配置。
+  publicDir: "static", // 静态资源（公共目录'public'将全部复制于'/'目录当中，通过‘/’访问。
   build: {
-    outDir: "pago",
-    assetsDir: "core"
-  },
-  css: {},
-  server: {}
+    outDir: "www",
+    assetsDir: "pago" // 修改开发目录 src 地址。
+  }
 })

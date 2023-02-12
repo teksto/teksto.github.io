@@ -1,0 +1,117 @@
+  /*
+ * https: //flatuicolors.com/
+ * https: //materialui.co/colors/
+**/
+
+:root {
+  --red      : #c23616;
+  --red-lg   : #ff4757;
+  --pink     : #ff6b81;
+  --pink-lg  : #f78fb3;
+  --orange   : #ff6348;
+  --orange-lg: #ff7f50;
+  --yellow   : #ffa502;
+  --yellow-lg: #eccc68;
+  --green    : #2ed573;
+  --green-lg : #7bed9f;
+  --cyan     : #1e90ff;
+  --cyan-lg  : #70a1ff;
+  --blue     : #3742fa;
+  --blue-lg  : #5352ed;
+  --purple   : #8854d0;
+  --purple-lg: #a55eea;
+  --brown    : #6D214F;
+  --brown-lg : #B33771;
+  --indigo   : #130f40;
+  --indigo-lg: #30336b;
+  --gold     : #f7b731;
+  --gold-lg  : #fed330;
+  --silver   : #f0f5f5;
+  --silver-lg: #FAF9F9;
+
+  --black   : #1e272e;
+  --white   : #f9f9f9;
+  --dark    : #2f3542;
+  --dark-lg : #57606f;
+  --gray-agg: #939BA8;
+  --gray    : #ced6e0;
+  --gray-lg : #dfe4ea;
+  --gray-lw : #E9EBF1;
+  --gray-ls : #f1f2f6;
+
+    /* Main color setting. */
+  --main     : #20bf6b;
+  --main-sup : #26de81;
+  --main-sk1 : #5ACD91;
+  --main-sk2 : #95DBB8;
+  --main-sk3 : #CFE9DE;
+  --color    : #2c2c54;
+  --link     : #00570e;
+  --link-sup : #00731a;
+  --button   : #05c46b;
+  --button-lg: #0be881;
+  --line     : #f7f1e3;
+
+    /* Rotate day and night */
+  --background-night: #CFCCC9;
+    /* --78C69A */
+
+    /* Screen size. */
+  --web     : 1020px;
+  --web-800 : 800px;
+  --pad     : 800px;
+  --apple   : 400px;
+  --mob     : 400px;
+  --mob-380 : 380px;
+  --mob-320 : 320px;
+  --wear    : 280px;
+  --tv-720p : 1280px;
+  --tv-1080p: 1920px;
+  --tv-4k   : 3840px;
+  --tv-8k   : 7680px;
+
+    /* Typesetting */
+  --size : .9rem;
+  --small: 6px;
+  --h1   : 3rem;
+  --h2   : 2.5rem;
+  --h3   : 1.8rem;
+  --h4   : 1.5rem;
+  --h5   : 1.2rem;
+
+    /* Font-family. */
+  --lang-bazo: -apple-system,   BlinkMacSystemFont,         Oxygren,            Cantarell,           "system-ui",       "Segoe UI",           "Roboto Mono";
+  --lang-zh  : "PingFang SC",   "PingFang TC",              "Hiragino Sans GB", "Hiragino Sans CNS", "Microsoft Yahei", "Microsoft JhengHei", var(--lang-bazo);
+  --lang-jp  : "Hiragino Sans", "Hiragino KaKu Gothic Pro", "Yu Gothic",        YuGothic,            Meiryo,            var(--lang-bazo);
+  --lang-kr  : "Malgun Gothic", var(--lang-bazo);
+}
+
+@font-face {
+  font-family : "TangutCiuj";
+  src         : url('./static/res/font/N4694-ciuj.woff2') format('woff2');
+  font-style  : normal;
+  font-weight : normal;
+  font-display: swap;
+}
+@font-face {
+  font-family : "TangutSeri";
+  src         : url('./static/res/font/NotoSerifTangut-Regular.woff2') format('woff2');
+  font-style  : normal;
+  font-weight : normal;
+  font-display: swap;
+}
+@font-face {
+  font-family : "Nvs";
+  src         : url('./static/res/font/NotoTraditionalNushu-Regular.woff2') format('woff2');
+  font-style  : normal;
+  font-weight : normal;
+  font-display: swap;
+}
+
+.tgC,
+:lang(tgc){font-family: "TangutCiuj", var(--lang-zh);}
+.tgS,
+:lang(tgs){font-family: "TangutSeri", var(--lang-zh);}
+
+.nv,
+:lang(nv){font-family: "Nvs", var(--lang-zh);}
