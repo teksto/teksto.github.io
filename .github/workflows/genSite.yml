@@ -1,35 +1,30 @@
 name: genSitePage
 on:
   push:
-    # 切换分支。
+    # 触发条件：vpg 分支更新。
     branches: [vpg]
-# 计划1（生成vue page 并 提交到 mastar）。
+
+# 计划1（生成vue page 并提交到 mastar）。
 jobs:
   GenPage:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Salutu
-        run: echo 'Say hello~'
-
       - name: Tiri 1
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         # with:
         #   BRANCH: vpg
 
       - name: Tiri 2
         run: git branch
 
-      - name: Tiri 3
-        run: ls
-
-      - name: Instali
+      - name: Tiri 3:Instali.
         run: npm install
 
-      - name: Kompili
+      - name: Tiri 4:Kompilu kaj generi.
         run: npm run build
 
-      - name: Pusi
+      - name: Tiri 5:Pusi.
         uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
           ACCESS_TOKEN: ${{secrets.GSP}}
