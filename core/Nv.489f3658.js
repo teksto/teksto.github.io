@@ -1,1 +1,0 @@
-import{a as t,c as e,b as s,t as a,u as o,F as r}from"./vendor.abf081d6.js";import{N as n}from"./TKJN.14fee555.js";const c=s("div",{id:"Nv"},"Nv's",-1),_={lang:"nv"},d={setup(i){return(p,l)=>(t(),e(r,null,[c,s("p",_,a(o(n)),1)],64))}};export{d as default};
