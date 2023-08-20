@@ -26,6 +26,7 @@ onMounted(()=>{
 #Kopirajto{
   text-align: center;
   color: var(--main-sk2);
+  margin: 3rem auto 1.8rem;
   a{
     color: var(--main-sk2);
     &:hover{

@@ -4,83 +4,72 @@
   <div id="Gazeoj">
     <div>
       <div class="grandaj">
-        <div class="G" lang="tgs">{{ String.fromCodePoint(parseInt(skribo['U'], 16)) }}</div>
+        <div class="G" lang="tgs">{{ String.fromCodePoint(parseInt(liter['U'], 16)) }}</div>
         <div class="teksto">
-          <p>{{ skribo['F'] }}</p>
+          <p>{{ liter['F'] }}</p>
           <p>
             <span>釋義：</span>
-            <span v-for="iz in skribo['M1']">{{ jugVortoj(iz) }}</span>
+            <span v-for="iz in liter['M1']">{{ parolparto(iz) }}</span>
           </p>
         </div>
       </div>
 
       <div id="Sangu">
-        <button @click="kole.pop()" id="antaua"></button>
-        <button @click="Hazar" id="monkey">🎲</button>
-        <button @click="Dividi" id="satas">💖</button>
+        <button @click="Nova" id="monkey">🎲</button>
+        <button @click="Forvisi" id="satas">💔</button>
       </div>
 
       <div id="Dividi" lang="tgs">
-        <span v-for="iz in kole">{{ iz }}</span>
+        <span v-for="iz in kole" @click="liter= iz">{{ String.fromCodePoint(parseInt(iz['U'], 16)) }}</span>
       </div>
     </div>
   </div>
 
-  <Kopira class="tp-kopira"/>
+  <Kopira style="z-index: -1" class="tp-kopira"/>
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, createApp, ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { hazarda, parolparto } from '../Privataj'
 import { TGD as Dz } from '../mater/dict/DzTangut.json'
 import { NVD as Dn } from '../mater/dict/DzNvs.json'
 
 import Kopira from './ero/Kopirajto.vue'
 import Mu from './ero/Menuo.vue'
 
-// 提供随机数（主要为字典切换使用）。
-function hazarda(max=6143, min=0, op){
-  const R= Math.random()
-  return Math.floor(R * (max - min + 1)) + min
+// 当前大字内容。
+// let liter= ref(Nova())
+let liter= ref(Dz[hazarda(6077)])
+// 当日显示过的字符集。
+let kole= ref(new Array)
+
+// 随机变化并存入值。
+function Nova(e){
+  let novaLiter= Dz[hazarda(6077)]
+  liter.value= novaLiter
+  kole.value.push(novaLiter)
 }
 
-// 临时显示
-let hz= hazarda(6077)
-let skribo= ref(Dz[hz])
-// 名词处理函数。
-function jugVortoj(t){
-  let vortoj= {
-    n: '名詞',
-    v: '動詞',
-    l: '漢語借詞',
-    t: '譯音',
-    a: '形容詞',
-    d: '副詞',
-    m: '數詞',
-    q: '量詞',
-    e: '助詞',
-    p: '代詞',
-    r: '介詞',
-    c: '連詞',
-    s: '嘆詞'
-  }
-  return t.replace(/[nvltadmqeprcs]/g, e=> vortoj[e])
-}
-// 随机切换新字。
-function Hazar(e){
-  let hz= hazarda()
-  skribo.value= Dz[hz]
-}
-// 收藏、分享。
-let kole= ref([])
-function Dividi(){
-  const tkt= String.fromCodePoint(parseInt(skribo.value['U'],16))
-  if(!kole.value.includes(tkt)){
-    kole.value.push(tkt)
+// 删除最后一位。
+function Forvisi(){
+  let grandeco= kole.value.length
+  if(grandeco > 1){
+    kole.value.pop()
   }
 }
 
+// 写入 localStorage 保存。
+function Spari(){}
 
-// onMounted(()=>{})
+// 切换显示。
+function Dividi(e){
+  liter.value= e
+}
+
+onMounted(()=>{
+  kole.value.push(liter.value)
+})
+// onUnmounted(()=>{})
 </script>
 
 <style scoped lang='scss'>
@@ -93,13 +82,13 @@ function Dividi(){
 .grandaj{
   position: relative;
   margin: auto;
-  width: 66vh;
-
+  width: 50vh;
   cursor: default;
+  text-align: center;
 }
 .G{
-  font-size: 60vh;
-  line-height: 60vh;
+  font-size: 50vh;
+  line-height: 50vh;
   @media screen and (max-width: 801px) {
     font-size: 90vw;
     line-height: 90vw;
@@ -166,9 +155,11 @@ function Dividi(){
   color: var(--gray-agg);
   max-height: 1.8rem;
   white-space: nowrap;
-  max-width: 100%;
-  overflow-y: auto;
+  max-width: 90vw;
+  width: 90vw;
+  overflow-x: auto;
   &::-webkit-scrollbar{display: none;}
+  cursor: pointer;
 }
 
 .tp-kopira{
@@ -177,21 +168,18 @@ function Dividi(){
   width: 100%;
 }
 
-#antaua{
-  &::before{
-    content: '🔨';
-  }
-  &:hover::before{content: '🪓';}
-}
-/* button hover animation */
-#monkey:hover{
-  animation-name: tada;
-  animation-duration: 2s;
+#monkey{
+  animation-duration: 1s;
   animation-fill-mode: both;
-  animation-iteration-count: infinite;
+  &:hover{
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    backface-visibility: visible;
+    animation-name: flip;
+  }
 }
 #satas:hover{
-  animation-name: zoom;
+  animation-name: tada;
   animation-duration: 2s;
   animation-fill-mode: both;
   animation-iteration-count: infinite;
@@ -208,8 +196,8 @@ function Dividi(){
 @keyframes tada{
   0%{transform: scale3d(1,1,1);}
   20%{transform: scale3d(.9.9.9) rotate3d(0,0,1,-3deg);}
-  30%,50%,70%,90%{transform: scale3d(1.2,1.2,1.2) rotate3d(0,0,1,3deg);}
-  40%,60%,80%{transform: scale3d(1.1,1.1,1.1) rotate3d(0,0,1,-3deg);}
+  30%,50%,70%,90%{transform: scale3d(1.5,1.5,1.5) rotate3d(0,0,1,3deg);}
+  40%,60%,80%{transform: scale3d(1.2,1.2,1.2) rotate3d(0,0,1,-3deg);}
   100%{transform: scale3d(1,1,1);}
 }
 @keyframes wobble{
@@ -219,6 +207,13 @@ function Dividi(){
   45%{transform: translate3d(-15%,0,0) rotate3d(0,0,1,-3deg);}
   60%{transform: translate3d(10%,0,0) rotate3d(0,0,1,2deg);}
   75%{transform: translate3d(-5%,0,0) rotate3d(0,0,1,-1deg);}
+}
+@keyframes flip{
+  0%{transform: perspective(400px) rotate3d(0,1,0,-360deg); animation-timing-function: ease-out;}
+  40%{transform: perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-190deg); animation-timing-function: ease-out;}
+  50%{transform: perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-170deg); animation-timing-function: ease-in;}
+  80%{transform: perspective(400px) scale3d(.95,.95,.95); animation-timing-function: ease-in;}
+  100%{transform: perspective(400px); animation-timing-function: ease-in;}
 }
 
 </style>

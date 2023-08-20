@@ -46,6 +46,7 @@
   --main-sk2 : #95DBB8;
   --main-sk3 : #CFE9DE;
   --color    : #2c2c54;
+  --color-sup: #9AA4AC;
   --link     : #00570e;
   --link-sup : #00731a;
   --button   : #05c46b;
@@ -53,8 +54,22 @@
   --line     : #f7f1e3;
 
     /* Rotate day and night */
+  --background: #f9f9f9;
   --background-night: #CFCCC9;
     /* --78C69A */
+
+/* Dek komfortaj koloroj. */
+  --kon-1  : #19CAAD;
+  --kon-2  : #8CC7B5;
+  --kon-3  : #A0EEE1;
+  --kon-4  : #BEE7E9;
+  --kon-5  : #BEEDC7;
+  --mal-1  : #D6D5B7;
+  --mal-2  : #D1BA74;
+  --mal-3  : #E6CEAC;
+  --mal-4  : #ECAD9E;
+  --mal-5  : #F4606C;
+  --kon-sup: #CCE8CF;
 
     /* Screen size. */
   --web     : 1020px;

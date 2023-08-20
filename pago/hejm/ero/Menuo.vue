@@ -2,7 +2,7 @@
   <div class="Mu">
     <div id="Mu-serci" class="Mz">
       <!-- <input type="text" class="ng"> -->
-      <button class="ng">查</button>
+      <button @click="serVidu" class="ng">查</button>
     </div>
 
     <div class="Mz">
@@ -14,7 +14,10 @@
     </div>
   </div>
 
-  <dialog>lib</dialog>
+  <dialog id="serDialog" ref="serDialog">
+    <h1>Dialog:Serci</h1>
+    <button @click="serDialog.close()">close</button>
+  </dialog>
 </template>
 
 <script setup>
@@ -37,6 +40,12 @@ const muIntroduci= [
   {ti: "檢索", vojo: "/scer"},
   {ti: "其它", vojo: "/aliaj"},
 ]
+
+const serDialog= ref(null)
+function serVidu(){
+  serDialog.value.showModal()
+  serDialog.value.show()
+}
 </script>
 
 <style scoped lang='scss'>
@@ -73,7 +82,7 @@ const muIntroduci= [
       display: inline-block;
       &:hover{
         background-color: var(--main-sk1);
-        color: var(--gray);
+        color: var(--white);
       }
       &:active{
         background-color: var(--main-sup);
