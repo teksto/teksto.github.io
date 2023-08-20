@@ -103,21 +103,21 @@
 
 @font-face {
   font-family : "TangutCiuj";
-  src         : url('./static/res/font/N4694-ciuj.woff2') format('woff2');
+  src         : url('../res/font/N4694-ciuj.woff2') format('woff2');
   font-style  : normal;
   font-weight : normal;
   font-display: swap;
 }
 @font-face {
   font-family : "TangutSeri";
-  src         : url('./static/res/font/NotoSerifTangut-Regular.woff2') format('woff2');
+  src         : url('../res/font/NotoSerifTangut-Regular.woff2') format('woff2');
   font-style  : normal;
   font-weight : normal;
   font-display: swap;
 }
 @font-face {
   font-family : "Nvs";
-  src         : url('./static/res/font/NotoTraditionalNushu-Regular.woff2') format('woff2');
+  src         : url('../res/font/NotoTraditionalNushu-Regular.woff2') format('woff2');
   font-style  : normal;
   font-weight : normal;
   font-display: swap;
